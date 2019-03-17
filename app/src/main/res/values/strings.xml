@@ -1,3 +1,109 @@
 <resources>
-    <string name="app_name">MDPU24 v1</string>
+    <string name="app_name">MDPU24</string>
+    <!-- Strings related to login -->
+    <string name="prompt_login">Логин</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="prompt_password_confirm">Подтвердите пароль</string>
+    <string name="prompt_first_name">Фамилия И.О.</string>
+    <string name="prompt_phone">Телефон</string>
+    <string name="prompt_email">Почта</string>
+    <string name="prompt_remember_password">Востановить пароль</string>
+    <string name="prompt_search">Поиск</string>
+    <string name="prompt_group">Группа</string>
+    <string name="prompt_reset_password">Новый пароль</string>
+    <string name="prompt_login_email_phone">Логин, почта или телефон</string>
+
+
+    <string name="action_sign_in">Войти</string>
+    <string name="registration">Регистрация</string>
+    <string name="action_sign_in_short">Вход</string>
+    <string name="action_registration_short">Регистрация</string>
+    <string name="reset_password">Сбросить пароль</string>
+    <string name="action_reset_short">Востановление пароля</string>
+
+
+    <string name="error_incorrect_login">Пользователя с таким именем не существует</string>
+    <string name="error_incorrect_password">Не верный пароль</string>
+    <string name="error_incorrect_password_confirm">Пароли должны совподать</string>
+    <string name="error_incorrect_phone">Не верныый номер телефона</string>
+    <string name="error_incorrect_email">Не верная почта</string>
+    <string name="error_incorrect_data">Не верно введенные данные</string>
+    <string name="error_server_not_response">Сервер не отчечает</string>
+    <string name="error_no_internet_conection">Нет подключения к интернету</string>
+    <string name="error_required">Поле обязательно для заполнения</string>
+
+
+    <string name="title_activity_news">Новости</string>
+    <string name="navigation_drawer_open">Открыть навигационное меню</string>
+    <string name="navigation_drawer_close">Закрыть навигационное меню</string>
+    <string name="nav_header_desc">Навигационный фон</string>
+    <string name="contentDescription">Иконка</string>
+
+
+    <!-- Url -->
+    <string name="news_api">https://mdpu.org.ua/wp-admin/admin-ajax.php/</string>
+    <string name="server_api">http://mdpu.mcdir.ru/</string>
+
+
+    <string name="galary_description">Galary</string>
+    <string name="timetable">Расписание</string>
+    <string name="students">Студенты</string>
+    <string name="marks">Оценки</string>
+    <string name="absenteeism">Пропуски</string>
+    <string name="chat">Чат</string>
+    <string name="connection">Связь</string>
+    <string name="task">Задания</string>
+    <string name="curator">Кураторский час</string>
+    <string name="system">системные</string>
+    <string name="grafic">График учебного процесса</string>
+    <string name="setngs">Настройки</string>
+    <string name="info">О программе</string>
+    <string name="news">Новости</string>
+    <string name="circle">circle</string>
+    <string name="Switch">Неделя</string>
+
+    <string name="mondey">ПН</string>
+    <string name="tuesday">ВТ</string>
+    <string name="wednesday">СР</string>
+    <string name="thursday">ЧТ</string>
+    <string name="friday">ПТ</string>
+    <string name="photo">Фото</string>
+    <string name="Plus">Добавить</string>
+    <string name="contacts">Контакты</string>
+    <string name="confirn">Подтвердить</string>
+    <string name="cancel">Отменить</string>
+    <string name="predmet">Предметы</string>
+    <string name="prompt_predmet">Предмет</string>
+    <string name="action_info">Информация</string>
+    <string name="modul_1">Модуль 1</string>
+    <string name="modul_2">Модуль 2</string>
+    <string name="one">1</string>
+    <string name="tow">2</string>
+    <string name="thre">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="ok">OK</string>
+    <string name="prompt_date">Дата</string>
+    <string name="mark">Оценка</string>
+    <string name="para">Пара</string>
+    <string name="add">Добавить</string>
+    <string name="promt_chage_passsword">Нажмите чтобы изменить пароль</string>
+    <string name="exit">Выход</string>
+    <string name="prompt_photo">Фото</string>
+
+    <string name="decription_change_login">Вы можете выбрать новое имя пользователя в MDPU24\n\nВы можите использвоать символы a–z, A–Z, 0–9 и подчеркивание. Максимальная длина 20 символов</string>
+    <string name="decription_change_name">Вы можете выбрать новое имя в MDPU24\n\nИмя должно быть введеным в формвте Иванов И.И. Вы можете исполдьзовать любые буквы украинского алфавита.</string>
+    <string name="decription_change_password">Вы можете выбрать новый пароль в MDPU24\n\nВы можите использвоать символы a–z, A–Z, 0–9 и подчеркивание. Минимаьная длина 6 символов</string>
+    <string name="decription_change_phone">Вы можете выбрать новый номер телефона в MDPU24\n\nВведите телефон в международном фориате (+380…)</string>
+    <string name="decription_change_email">Вы можете выбрать новый email телефона в MDPU24\n\nВведите новый уникальный email</string>
+    <string name="progam_info">Приложение разработано\nФранцузевичем Александром</string>
+    <string name="massage">Сообщение</string>
+    <string name="send">send</string>
+    <string name="error_group_is_empty">Поле \"группа\" не должно быть пустым</string>
+    <string name="prompt_date_end">Дата завершения</string>
+    <string name="error_date">Не верно введенная дата</string>
+    <string name="delete">Удалить</string>
+    <string name="projects">Проекты</string>>
+
+
 </resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/timetable"
+            android:icon="@drawable/calendar_text"
+            android:title="@string/timetable" />
+        <item
+            android:id="@+id/student"
+            android:icon="@drawable/account_multiple"
+            android:title="@string/students" />
+        <item
+            android:id="@+id/marks"
+            android:icon="@drawable/finance"
+            android:title="@string/marks" />
+        <item
+            android:id="@+id/absenteeism"
+            android:icon="@drawable/account_off"
+            android:title="@string/absenteeism" />
+        <item
+            android:id="@+id/projects"
+            android:icon="@drawable/school"
+            android:title="@string/projects" />
+    </group>
+
+    <item android:title="@string/connection">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/chat"
+                    android:icon="@drawable/message_text"
+                    android:title="@string/chat" />
+                <item
+                    android:id="@+id/tasks"
+                    android:icon="@drawable/calendar_check"
+                    android:title="@string/task" />
+                <item
+                    android:id="@+id/curator"
+                    android:icon="@drawable/clock"
+                    android:title="@string/curator" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/system">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/news"
+                    android:icon="@drawable/card_text"
+                    android:title="@string/news" />
+                <item
+                    android:id="@+id/grafic"
+                    android:icon="@drawable/file_pdf"
+                    android:title="@string/grafic" />
+                <item
+                    android:id="@+id/setngs"
+                    android:icon="@drawable/settings"
+                    android:title="@string/setngs" />
+                <item
+                    android:id="@+id/info"
+                    android:icon="@drawable/information"
+                    android:title="@string/info" />
+            </group>
+        </menu>
+    </item>
+
+</menu>
