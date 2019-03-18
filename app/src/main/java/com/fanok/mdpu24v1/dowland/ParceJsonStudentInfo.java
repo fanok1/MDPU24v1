@@ -3,11 +3,16 @@ package com.fanok.mdpu24v1.dowland;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.fanok.mdpu24v1.MyOnItemClickListner;
+import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.Student;
 import com.google.gson.JsonArray;
@@ -74,8 +79,34 @@ public class ParceJsonStudentInfo extends AsyncTask<Void, Void, ArrayList<Studen
         listView.setAdapter(adapter);
 
 
-        if (level == 2 || level == 4)
+        if (level == 2 || level == 4) {
             listView.setOnItemClickListener(new MyOnItemClickListner(students));
+
+            listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
+                String url = listView.getContext().getResources().getString(R.string.server_api) + "set_starosta.php";
+                if (students.get(i).getConfirm() == 1) {
+                    PopupMenu popupMenu = new PopupMenu(listView.getContext(), view);
+                    popupMenu.inflate(R.menu.menu_set_starosta);
+                    popupMenu.setOnMenuItemClickListener(menuItem -> {
+                        if (menuItem.getItemId() == R.id.setStarosta) {
+
+                            InsertDataInSql inSql = new InsertDataInSql(view, url);
+                            if (inSql.isOnline()) {
+                                inSql.setData("name", students.get(i).getName());
+                                inSql.execute();
+                            } else
+                                Toast.makeText(view.getContext(), R.string.error_no_internet_conection, Toast.LENGTH_LONG).show();
+                        }
+                        return false;
+                    });
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        popupMenu.setGravity(Gravity.END);
+                    }
+                    popupMenu.show();
+                }
+                return false;
+            });
+        }
 
         if (progressBar != null) progressBar.setVisibility(ProgressBar.GONE);
     }
