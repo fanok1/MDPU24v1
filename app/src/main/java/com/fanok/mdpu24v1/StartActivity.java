@@ -52,15 +52,13 @@ public class StartActivity extends AppCompatActivity {
         SharedPreferences mPref = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         String login = mPref.getString("login", "");
 
-        String url = getResources().getString(R.string.server_api) + "get_level.php";
-
-        if (isOnline()) {
-            DowlandLevel dowlandLevel = new DowlandLevel(this, url, login);
-            dowlandLevel.execute();
-        }
-
         if (login.isEmpty()) startActivity(new Intent(this, LoginActivity.class));
         else {
+            String url = getResources().getString(R.string.server_api) + "get_level.php";
+            if (isOnline()) {
+                DowlandLevel dowlandLevel = new DowlandLevel(this, url, login);
+                dowlandLevel.execute();
+            }
             TypeTimeTable.setGroup(mPref.getString("TypeTimeTable_group", ""));
             TypeTimeTable.setType(mPref.getInt("TypeTimeTable_type", 0));
             startActivity(new Intent(this, MainActivity.class));
