@@ -1,5 +1,7 @@
 package com.fanok.mdpu24v1.fragment;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.fanok.mdpu24v1.R;
+import com.fanok.mdpu24v1.activity.ZoomActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -61,6 +64,12 @@ public class ScreenSlidePageFragment extends android.support.v4.app.Fragment {
                         progressBar.setVisibility(View.GONE);
                     }
                 }, (imageUri, view, current, total) -> progressBar.setProgress(Math.round(100.0f * current / total)));
+        imageView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ZoomActivity.class);
+            intent.putExtra("url", url);
+            Bundle bundle = ActivityOptions.makeCustomAnimation(view.getContext(), R.anim.zoom_and_scale, R.anim.re_zoom_and_scale).toBundle();
+            view.getContext().startActivity(intent, bundle);
+        });
         return rootView;
     }
 }

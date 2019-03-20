@@ -131,6 +131,10 @@
             android:name=".activity.CuratorAddActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SwipeOnClose" />
+        <activity
+            android:name=".activity.ZoomActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.NoActionBar" />
     </application>
 
 </manifest>
