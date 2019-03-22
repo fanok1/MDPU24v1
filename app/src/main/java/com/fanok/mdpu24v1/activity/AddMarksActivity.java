@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,6 +99,10 @@ public class AddMarksActivity extends AppCompatActivity {
 
         mark.requestFocus();
 
+        predmet.setOnKeyListener((view, i, keyEvent) -> {
+            layoutPredmet.setErrorEnabled(false);
+            return false;
+        });
         predmet.setOnClickListener(this::showPredmetSelector);
         predmet.setOnFocusChangeListener((view, b) -> {
             if (b) {
@@ -112,6 +117,10 @@ public class AddMarksActivity extends AppCompatActivity {
         });
 
 
+        name.setOnKeyListener((view, i, keyEvent) -> {
+            layoutName.setErrorEnabled(false);
+            return false;
+        });
         name.setOnClickListener(this::showNemeSelector);
         name.setOnFocusChangeListener((view, b) -> {
             if (b) {
@@ -125,23 +134,35 @@ public class AddMarksActivity extends AppCompatActivity {
             }
         });
 
+        date.setOnKeyListener((view, i, keyEvent) -> {
+            layoutDate.setErrorEnabled(false);
+            return false;
+        });
         date.setOnClickListener(this::showDateSelector);
         date.setOnFocusChangeListener((view, b) -> {
             if (b) {
                 layoutDate.setErrorEnabled(false);
                 showDateSelector(view);
-            } else {
-                if (date.getText().toString().isEmpty()) {
-                    layoutDate.setErrorEnabled(true);
-                    layoutDate.setError(view.getResources().getString(R.string.error_required));
-                }
             }
         });
 
+        mark.setOnKeyListener((view, i, keyEvent) -> {
+            layoutMark.setErrorEnabled(false);
+            return false;
+        });
         mark.setOnFocusChangeListener((view, b) -> {
-            if (b) layoutMark.setErrorEnabled(false);
+            if (b) {
+                layoutMark.setErrorEnabled(false);
+                InputFilter[] fArray = new InputFilter[1];
+                if (date.getText().toString().isEmpty())
+                    fArray[0] = new InputFilter.LengthFilter(2);
+                else fArray[0] = new InputFilter.LengthFilter(1);
+                mark.setFilters(fArray);
+            }
             else {
-                if (mark.getText().toString().isEmpty() || Integer.parseInt(mark.getText().toString()) < 1 || Integer.parseInt(mark.getText().toString()) > 5) {
+                if (mark.getText().toString().isEmpty() || Integer.parseInt(mark.getText().toString()) < 1 ||
+                        (!date.getText().toString().isEmpty() && Integer.parseInt(mark.getText().toString()) > 5) ||
+                        (date.getText().toString().isEmpty() && Integer.parseInt(mark.getText().toString()) > 30)) {
                     layoutMark.setErrorEnabled(true);
                     layoutMark.setError(view.getResources().getString(R.string.error_incorrect_data));
                 }
@@ -173,6 +194,8 @@ public class AddMarksActivity extends AppCompatActivity {
                 date.setText(RegistrationActivity.groupName);
                 break;
         }
+        RegistrationActivity.groupName = "";
+
     }
 
     @Override
@@ -195,11 +218,9 @@ public class AddMarksActivity extends AppCompatActivity {
             layoutName.setErrorEnabled(true);
             layoutName.setError(view.getResources().getString(R.string.error_required));
         }
-        if (date.getText().toString().isEmpty()) {
-            layoutDate.setErrorEnabled(true);
-            layoutDate.setError(view.getResources().getString(R.string.error_required));
-        }
-        if (mark.getText().toString().isEmpty() || Integer.parseInt(mark.getText().toString()) < 1 || Integer.parseInt(mark.getText().toString()) > 5) {
+        if (mark.getText().toString().isEmpty() || Integer.parseInt(mark.getText().toString()) < 1 ||
+                (!date.getText().toString().isEmpty() && Integer.parseInt(mark.getText().toString()) > 5) ||
+                (date.getText().toString().isEmpty() && Integer.parseInt(mark.getText().toString()) > 30)) {
             layoutMark.setErrorEnabled(true);
             layoutMark.setError(view.getResources().getString(R.string.error_incorrect_data));
         }

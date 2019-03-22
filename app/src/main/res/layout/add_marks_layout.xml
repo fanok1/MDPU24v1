@@ -89,8 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/mark"
-            android:inputType="numberSigned"
-            android:maxLength="1" />
+            android:inputType="numberSigned" />
     </android.support.design.widget.TextInputLayout>
 
 

@@ -1,56 +1,56 @@
 package com.fanok.mdpu24v1;
 
 import android.annotation.SuppressLint;
-import android.view.View;
+import android.support.design.widget.TextInputEditText;
+import android.view.KeyEvent;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fanok.mdpu24v1.dowland.InsertDataInSql;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class ClickListnerMarks implements View.OnClickListener {
+public class ClickListnerMarks implements TextInputEditText.OnEditorActionListener {
 
+    private static String predmet;
     @SuppressLint("StaticFieldLeak")
-    public static View keybord;
-    private static String name;
-    private static String date;
-    private static String modul;
-    @SuppressLint("StaticFieldLeak")
-    private static TextView textView;
-    private String nameLocal;
-    private String dateLocal;
-    private String modulLocal;
+    private TextView textView;
 
     public ClickListnerMarks(String name, Date date, String modul) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.forLanguageTag("UA"));
         nameLocal = name;
-        dateLocal = dateFormat.format(date);
+        if (date == null) dateLocal = "";
+        else dateLocal = dateFormat.format(date);
         modulLocal = modul;
     }
 
-    public static String getModul() {
-        return modul;
-    }
+    private String nameLocal;
+    private String dateLocal;
+    private String modulLocal;
 
-    public static String getName() {
-        return name;
-    }
-
-    public static String getDate() {
-        return date;
-    }
-
-    public static TextView getTextView() {
-        return textView;
+    public static void setPredmet(String predmet) {
+        ClickListnerMarks.predmet = predmet;
     }
 
     @Override
-    public void onClick(View view) {
-        if (keybord != null) keybord.setVisibility(View.VISIBLE);
-        textView = (TextView) view;
-        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        ClickListnerMarks.name = nameLocal;
-        ClickListnerMarks.date = dateLocal;
-        ClickListnerMarks.modul = modulLocal;
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        if (i == KeyEvent.KEYCODE_ENDCALL) {
+            String url = textView.getContext().getResources().getString(R.string.server_api) + "update_marks.php";
+            String mark = textView.getText().toString();
+            InsertDataInSql sql = new InsertDataInSql(textView, url);
+            if (sql.isOnline()) {
+                sql.setData("predmet", predmet);
+                sql.setData("name", nameLocal);
+                sql.setData("date", dateLocal);
+                sql.setData("mark", mark);
+                sql.setData("modul", modulLocal);
+                sql.execute();
+            } else {
+                Toast.makeText(textView.getContext(), textView.getResources().getText(R.string.error_no_internet_conection), Toast.LENGTH_LONG).show();
+            }
+        }
+        return false;
     }
 }

@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#000051</color>
     <color name="green">@android:color/holo_green_dark</color>
     <color name="red">@android:color/holo_red_light</color>
+    <color name="black">@android:color/black</color>
     <color name="chat">#b3ffa8</color>
 
 

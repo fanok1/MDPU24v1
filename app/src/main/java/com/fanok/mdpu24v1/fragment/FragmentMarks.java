@@ -8,14 +8,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.fanok.mdpu24v1.ClickListnerMarks;
 import com.fanok.mdpu24v1.R;
@@ -25,7 +22,6 @@ import com.fanok.mdpu24v1.activity.AddMarksActivity;
 import com.fanok.mdpu24v1.activity.PopupGroupSearchActivity;
 import com.fanok.mdpu24v1.activity.RegistrationActivity;
 import com.fanok.mdpu24v1.adapter.PagerMrksAdapter;
-import com.fanok.mdpu24v1.dowland.InsertDataInSql;
 
 public class FragmentMarks extends android.support.v4.app.Fragment {
 
@@ -44,6 +40,7 @@ public class FragmentMarks extends android.support.v4.app.Fragment {
         }
 
         predmet.setText(RegistrationActivity.groupName);
+        ClickListnerMarks.setPredmet(RegistrationActivity.groupName);
 
         if (!RegistrationActivity.groupName.isEmpty()) {
             FragmentStatePagerAdapter pagerAdapter = new PagerMrksAdapter(getChildFragmentManager(), tab.getTabCount(), RegistrationActivity.groupName);
@@ -75,17 +72,6 @@ public class FragmentMarks extends android.support.v4.app.Fragment {
 
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
-        getView().setOnKeyListener((view, i, keyEvent) -> {
-            if (keyEvent.getAction() == KeyEvent.ACTION_UP && i == KeyEvent.KEYCODE_BACK) {
-                if (ClickListnerMarks.keybord != null && ClickListnerMarks.keybord.getVisibility() == View.VISIBLE) {
-                    ClickListnerMarks.keybord.setVisibility(View.GONE);
-                    return true;
-                }
-            }
-            return false;
-        });
-
-
     }
 
 
@@ -99,7 +85,6 @@ public class FragmentMarks extends android.support.v4.app.Fragment {
         editor.putInt("activity", 3);
         editor.apply();
         setHasOptionsMenu(true);
-        ClickListnerMarks.keybord = view.findViewById(R.id.keybord);
         predmet = view.findViewById(R.id.predmet);
         predmet.setKeyListener(null);
         predmet.setOnClickListener(this::showPopup);
@@ -112,29 +97,6 @@ public class FragmentMarks extends android.support.v4.app.Fragment {
 
         tab = view.findViewById(R.id.tabLayout);
         pager = view.findViewById(R.id.viewPager);
-
-        for (int i = 0; i < 5; i++) {
-            String id = "button" + (i + 1);
-            int resId = ClickListnerMarks.keybord.getResources().getIdentifier(id, "id", view.getContext().getPackageName());
-            Button button = view.findViewById(resId);
-            button.setOnClickListener(view12 -> {
-                String url = view.getContext().getResources().getString(R.string.server_api) + "update_marks.php";
-                String mark = button.getText().toString();
-                ClickListnerMarks.keybord.setVisibility(View.GONE);
-                InsertDataInSql sql = new InsertDataInSql(view, url);
-                if (sql.isOnline()) {
-                    ClickListnerMarks.getTextView().setText(mark);
-                    sql.setData("predmet", predmet.getText().toString());
-                    sql.setData("name", ClickListnerMarks.getName());
-                    sql.setData("date", ClickListnerMarks.getDate());
-                    sql.setData("mark", mark);
-                    sql.setData("modul", ClickListnerMarks.getModul());
-                    sql.execute();
-                } else {
-                    Toast.makeText(getContext(), view.getResources().getText(R.string.error_no_internet_conection), Toast.LENGTH_LONG).show();
-                }
-            });
-        }
 
         return view;
     }
