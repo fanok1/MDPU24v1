@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
-import android.widget.ScrollView;
 
+import com.fanok.mdpu24v1.NonFocusingScrollView;
+import com.fanok.mdpu24v1.NonFocusingScrollViewHoresontal;
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.TypeTimeTable;
@@ -36,8 +36,11 @@ public class TabMarks extends Fragment {
             this.modul = bundle.getInt("modul");
             this.lessons = bundle.getString("lesson");
         }
-        ScrollView scrollVertical = view.findViewById(R.id.scrollV);
-        HorizontalScrollView scrollHoresontal = view.findViewById(R.id.scrollH);
+        NonFocusingScrollView scrollVertical = view.findViewById(R.id.scrollV);
+        NonFocusingScrollViewHoresontal scrollHoresontal = view.findViewById(R.id.scrollH);
+
+
+
 
         scrollHoresontal.requestDisallowInterceptTouchEvent(true);
         scrollVertical.setOnTouchListener(new View.OnTouchListener() {

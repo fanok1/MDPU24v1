@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.MovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -182,6 +183,7 @@ public class ParceJsonMarks extends AsyncTask<Void, Void, ArrayList<Marks>> {
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
         editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        MovementMethod mm = editText.getMovementMethod();
         editText.setMovementMethod(null);
         if (text != 0) {
             editText.setText(String.valueOf(text));
@@ -194,9 +196,11 @@ public class ParceJsonMarks extends AsyncTask<Void, Void, ArrayList<Marks>> {
             public void onFocusChange(View view, boolean b) {
                 try {
                     if (b) {
+                        editText.setMovementMethod(mm);
                         number = Integer.parseInt(editText.getText().toString());
                         editText.setText("");
                     } else {
+                        editText.setMovementMethod(null);
                         if (editText.getText().toString().isEmpty()) {
                             editText.setText(String.valueOf(number));
                         }
