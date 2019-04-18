@@ -17,12 +17,12 @@ public class Dates {
     }
 
     public void setDates(String date) throws ParseException {
-        this.dates.add(ft.parse(date));
+        if (!date.isEmpty()) this.dates.add(ft.parse(date));
     }
 
     public void setDates(String pattern, String date) throws ParseException {
         SimpleDateFormat ft = new SimpleDateFormat(pattern, Locale.forLanguageTag("UA"));
-        this.dates.add(ft.parse(date));
+        if (!date.isEmpty()) this.dates.add(ft.parse(date));
     }
 
     public ArrayList<Date> sort() {

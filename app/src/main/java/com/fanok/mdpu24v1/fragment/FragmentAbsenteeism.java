@@ -21,6 +21,8 @@ import com.fanok.mdpu24v1.activity.AddAbsenteeismActivity;
 import com.fanok.mdpu24v1.adapter.PagerAbsenteeismAdapter;
 
 public class FragmentAbsenteeism extends android.support.v4.app.Fragment {
+    private TabLayout tab;
+    private ViewPager pager;
 
     @Nullable
     @Override
@@ -33,9 +35,15 @@ public class FragmentAbsenteeism extends android.support.v4.app.Fragment {
         editor.apply();
 
         setHasOptionsMenu(true);
-        TabLayout tab = view.findViewById(R.id.tabLayout);
-        ViewPager pager = view.findViewById(R.id.viewPager);
+        tab = view.findViewById(R.id.tabLayout);
+        pager = view.findViewById(R.id.viewPager);
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         FragmentPagerAdapter pagerAdapter = new PagerAbsenteeismAdapter(getChildFragmentManager(), tab.getTabCount());
         pager.setAdapter(pagerAdapter);
         pager.setOffscreenPageLimit(pagerAdapter.getCount() > 1 ? pagerAdapter.getCount() - 1 : 1);
@@ -57,7 +65,7 @@ public class FragmentAbsenteeism extends android.support.v4.app.Fragment {
             }
         });
 
-        return view;
+
     }
 
     @Override

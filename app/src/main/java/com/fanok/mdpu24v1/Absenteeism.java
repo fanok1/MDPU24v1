@@ -18,6 +18,7 @@ public class Absenteeism {
 
 
     public void setAbsenteeism(String date, int absenteeism) throws ParseException {
+        if (date.isEmpty() || absenteeism == -1) return;
         if (this.absenteeism.containsKey(ft.parse(date))) {
             this.absenteeism.get(ft.parse(date)).setPara(absenteeism);
         } else {
