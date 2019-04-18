@@ -45,6 +45,7 @@ public class Marks {
     }
 
     public int abs() {
+        if (sum == 0) return 0;
         return sum / marks.size() * 4;
     }
 

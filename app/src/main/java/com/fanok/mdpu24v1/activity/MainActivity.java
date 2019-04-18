@@ -8,12 +8,14 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fanok.mdpu24v1.BackPress;
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.TypeTimeTable;
@@ -61,14 +63,13 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         MenuItem student = navigationView.getMenu().findItem(R.id.student);
-        MenuItem chat = navigationView.getMenu().findItem(R.id.chat);
-        MenuItem tasks = navigationView.getMenu().findItem(R.id.tasks);
-        MenuItem curator = navigationView.getMenu().findItem(R.id.curator);
+        MenuItem connection = navigationView.getMenu().findItem(R.id.connection);
+
+        MenuItem absenteeism = navigationView.getMenu().findItem(R.id.absenteeism);
         if (level == 3) {
             student.setEnabled(false);
-            chat.setEnabled(false);
-            tasks.setEnabled(false);
-            curator.setEnabled(false);
+            absenteeism.setEnabled(false);
+            connection.setVisible(false);
         }
 
         if (savedInstanceState == null) {
@@ -123,7 +124,19 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+            if (BackPress.getFragment().size() < 2) {
+                AlertDialog.Builder ad = new AlertDialog.Builder(this);
+                ad.setTitle("Выход");
+                ad.setMessage("Вы уверены что хотите выйти?");
+                ad.setPositiveButton("Да", (dialog, arg1) -> {
+                    super.onBackPressed();
+                });
+                ad.setNegativeButton("Нет", (dialogInterface, i) -> {
+                });
+                ad.setCancelable(true);
+                ad.show();
+            }
         }
     }
 

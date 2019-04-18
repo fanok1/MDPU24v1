@@ -105,7 +105,7 @@ public class ProjectAddActivity extends ResetPaswordActivity {
             }
             if (b) {
                 layoutGroup.setErrorEnabled(false);
-                showPopup(1, view, getResources().getString(R.string.server_api) + "get_groups_student.php");
+                showPopup(1, view, getResources().getString(R.string.server_api) + "get_groups_marks.php");
             } else {
                 if (group.getText().toString().isEmpty()) {
                     layoutGroup.setErrorEnabled(true);
@@ -113,7 +113,7 @@ public class ProjectAddActivity extends ResetPaswordActivity {
                 }
             }
         });
-        group.setOnClickListener(view -> showPopup(1, view, getResources().getString(R.string.server_api) + "get_groups_student.php"));
+        group.setOnClickListener(view -> showPopup(1, view, getResources().getString(R.string.server_api) + "get_groups_marks.php"));
 
         predmet.setOnFocusChangeListener((view, b) -> {
             if (b) {

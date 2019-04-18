@@ -26,7 +26,9 @@
             android:title="@string/projects" />
     </group>
 
-    <item android:title="@string/connection">
+    <item
+        android:id="@+id/connection"
+        android:title="@string/connection">
         <menu>
             <group android:checkableBehavior="single">
                 <item

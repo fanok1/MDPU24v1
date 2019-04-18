@@ -33,7 +33,7 @@ public class NonFocusingScrollView extends ScrollView {
 
     @Override
     public void requestChildFocus(View child, View focused) {
-        //super.requestChildFocus(child, focused);
+        super.requestChildFocus(child, focused);
     }
 
     @Override
