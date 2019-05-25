@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.TypeTimeTable;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.fanok.mdpu24v1.dowland.DowlandGroupsCurator;
 
 import java.util.Objects;
@@ -31,10 +32,10 @@ public class FragmentAbsenteeismSelect extends android.support.v4.app.Fragment {
             dowland.setProgressBar(view.findViewById(R.id.progressBar));
             dowland.execute();
         } else
-            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAbsenteeism()).commit();
+            Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentAbsenteeism(), true);
         listView.setOnItemClickListener((adapterView, view1, i, l) -> {
             TypeTimeTable.setGroup(view.getContext(), adapterView.getItemAtPosition(i).toString());
-            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAbsenteeism()).commit();
+            Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentAbsenteeism(), true);
         });
         return view;
     }

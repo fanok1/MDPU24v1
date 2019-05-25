@@ -57,7 +57,8 @@
                 <item
                     android:id="@+id/grafic"
                     android:icon="@drawable/file_pdf"
-                    android:title="@string/grafic" />
+                    android:title="@string/grafic"
+                    android:visible="false" />
                 <item
                     android:id="@+id/setngs"
                     android:icon="@drawable/settings"

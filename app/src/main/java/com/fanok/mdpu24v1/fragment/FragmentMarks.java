@@ -29,10 +29,14 @@ public class FragmentMarks extends android.support.v4.app.Fragment {
     private android.support.design.widget.TextInputEditText predmet;
     private TabLayout tab;
     private ViewPager pager;
+    private boolean firstFocus;
 
     @Override
     public void onResume() {
         super.onResume();
+        firstFocus = true;
+        predmet.requestFocus();
+
 
         if (flag) {
             RegistrationActivity.groupName = predmet.getText().toString();
@@ -89,9 +93,10 @@ public class FragmentMarks extends android.support.v4.app.Fragment {
         predmet.setKeyListener(null);
         predmet.setOnClickListener(this::showPopup);
         predmet.setOnFocusChangeListener((View view1, boolean b) -> {
-            if (b) {
+            if (b && !firstFocus) {
                 showPopup(view1);
             }
+            firstFocus = false;
         });
 
 

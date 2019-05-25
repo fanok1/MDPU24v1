@@ -49,6 +49,7 @@ public class DowlandStudentGroups extends DowladParent {
     @Override
     protected void onPostExecute(Void aVoid) {
         insertTotinyDB("GroupsList");
+        tab.removeAllTabs();
         for (int i = 0; i < grouplist.size(); i++) {
             tab.addTab(tab.newTab().setText(grouplist.get(i)));
         }

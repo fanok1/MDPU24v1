@@ -23,6 +23,7 @@ import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.TinyDB;
 import com.fanok.mdpu24v1.TypeTimeTable;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.fanok.mdpu24v1.activity.ProjectAddActivity;
 import com.fanok.mdpu24v1.adapter.PagerProjectAdaptor;
 import com.fanok.mdpu24v1.dowland.DowlandStudentTab;
@@ -102,8 +103,7 @@ public class FragmentProjects extends android.support.v4.app.Fragment {
                 if (notificationManager != null) {
                     notificationManager.cancel(3);
                 }
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FragmentProjects()).commit();
+                Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentProjects(), true);
             }
         };
 

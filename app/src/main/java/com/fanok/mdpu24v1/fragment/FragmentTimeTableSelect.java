@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.TypeTimeTable;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.fanok.mdpu24v1.dowland.DowlandGroupsCurator;
 
 import java.util.Objects;
@@ -32,7 +33,7 @@ public class FragmentTimeTableSelect extends android.support.v4.app.Fragment {
             dowland.setProgressBar(view.findViewById(R.id.progressBar));
             dowland.execute();
         } else
-            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentTimeTable()).commit();
+            Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentTimeTable(), true);
         listView.setOnItemClickListener((adapterView, view1, i, l) -> {
             if (i == 0) {
                 TypeTimeTable.setType(view.getContext(), TypeTimeTable.teacherTimeTable);
@@ -40,7 +41,7 @@ public class FragmentTimeTableSelect extends android.support.v4.app.Fragment {
                 TypeTimeTable.setType(view.getContext(), TypeTimeTable.curatorTimeTable);
                 TypeTimeTable.setGroup(view.getContext(), adapterView.getItemAtPosition(i).toString());
             }
-            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentTimeTable()).commit();
+            Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentTimeTable(), true);
         });
         return view;
     }

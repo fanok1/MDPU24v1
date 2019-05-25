@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.TypeTimeTable;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.fanok.mdpu24v1.dowland.DowlandGroupsCurator;
 
 import java.util.Objects;
@@ -46,11 +47,11 @@ public class FragmentMarckSelect extends android.support.v4.app.Fragment {
     }
 
     protected void startFragmentThis() {
-        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMarckSelect()).commit();
+        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentMarckSelect(), true);
     }
 
     protected void startFragment() {
-        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMarks()).commit();
+        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentMarks(), true);
     }
 }
 

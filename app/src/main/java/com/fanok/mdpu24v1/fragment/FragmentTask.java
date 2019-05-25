@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.fanok.mdpu24v1.R;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.fanok.mdpu24v1.activity.TaskAddActivity;
 import com.fanok.mdpu24v1.adapter.PagerTaskAdaptor;
 import com.fanok.mdpu24v1.dowland.DowlandStudentGroups;
@@ -46,7 +46,6 @@ public class FragmentTask extends FragmentStudentInfo {
         if (notificationManager != null) {
             notificationManager.cancel(2);
         }
-        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new FragmentTask()).commit();
+        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentTask(), true);
     }
 }

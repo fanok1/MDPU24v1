@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.TinyDB;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.fanok.mdpu24v1.activity.RegistrationActivity;
 import com.fanok.mdpu24v1.adapter.PagerStudentInfoAdaptor;
 import com.fanok.mdpu24v1.dowland.DowlandStudentGroups;
@@ -36,22 +37,42 @@ public class FragmentStudentInfo extends android.support.v4.app.Fragment {
     private int level;
     private BroadcastReceiver br;
     private SharedPreferences mPref;
+    private View view;
+    private TabLayout tab;
+    private ViewPager pager;
+    private FragmentManager fm;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_time_table, container, false);
+        view = inflater.inflate(R.layout.fragment_time_table, container, false);
+        tab = view.findViewById(R.id.tabLayout);
+        pager = view.findViewById(R.id.viewPager);
+        fm = getChildFragmentManager();
         mPref = view.getContext().getSharedPreferences(StartActivity.PREF_NAME, StartActivity.MODE_PRIVATE);
         start(1);
-
-
         level = mPref.getInt("level", 0);
-        String login = mPref.getString("login", "");
         setHasOptionsMenu(true);
-        TabLayout tab = view.findViewById(R.id.tabLayout);
-        ViewPager pager = view.findViewById(R.id.viewPager);
-        FragmentManager fm = getChildFragmentManager();
+
+
+        br = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                clearNotification(context);
+            }
+        };
+
+        IntentFilter intFilt = new IntentFilter(ACTION);
+        Objects.requireNonNull(getContext()).registerReceiver(br, intFilt);
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String login = mPref.getString("login", "");
         final String url = getResources().getString(R.string.server_api) + "get_groups_student.php";
 
         DowlandStudentGroups dowland = getDowland(view, url, tab, pager, fm);
@@ -90,18 +111,6 @@ public class FragmentStudentInfo extends android.support.v4.app.Fragment {
 
             }
         });
-
-        br = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                clearNotification(context);
-            }
-        };
-
-        IntentFilter intFilt = new IntentFilter(ACTION);
-        Objects.requireNonNull(getContext()).registerReceiver(br, intFilt);
-
-        return view;
     }
 
     protected void clearNotification(Context context) {
@@ -109,8 +118,7 @@ public class FragmentStudentInfo extends android.support.v4.app.Fragment {
         if (notificationManager != null) {
             notificationManager.cancel(1);
         }
-        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new FragmentStudentInfo()).commit();
+        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentStudentInfo(), true);
     }
 
     protected DowlandStudentGroups getDowland(View view, String url, TabLayout tab, ViewPager pager, FragmentManager fm) {

@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fanok.mdpu24v1.BackPress;
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.TypeTimeTable;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity
 
     private int level;
     private View headerView;
+    private static int countFragmentIntoStack;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        navigationView = findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
 
 
@@ -76,42 +81,33 @@ public class MainActivity extends AppCompatActivity
             int activity = mPref.getInt("activity", 0);
             switch (activity) {
                 case 1:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentStudentInfo()).commit();
-                    navigationView.setCheckedItem(R.id.student);
+                    showMenuFragment(new FragmentStudentInfo(), true, R.id.student);
                     break;
                 case 2:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentTimeTable()).commit();
-                    navigationView.setCheckedItem(R.id.timetable);
+                    showMenuFragment(new FragmentTimeTable(), true, R.id.timetable);
                     break;
                 case 3:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMarks()).commit();
-                    navigationView.setCheckedItem(R.id.marks);
+                    showMenuFragment(new FragmentMarks(), true, R.id.marks);
                     break;
                 case 4:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAbsenteeism()).commit();
-                    navigationView.setCheckedItem(R.id.absenteeism);
+                    showMenuFragment(new FragmentAbsenteeism(), true, R.id.absenteeism);
                     break;
                 case 5:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentNewsUniversity()).commit();
+                    showMenuFragment(new FragmentNewsUniversity(), true, R.id.news);
                     startActivity(new Intent(this, ChatActivity.class));
-                    navigationView.setCheckedItem(R.id.news);
                     break;
                 case 6:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentTask()).commit();
-                    navigationView.setCheckedItem(R.id.tasks);
+                    showMenuFragment(new FragmentTask(), true, R.id.tasks);
                     break;
                 case 7:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentProjects()).commit();
-                    navigationView.setCheckedItem(R.id.projects);
+                    showMenuFragment(new FragmentProjects(), true, R.id.projects);
                     break;
                 case 8:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentCurator()).commit();
-                    navigationView.setCheckedItem(R.id.curator);
+                    showMenuFragment(new FragmentCurator(), true, R.id.curator);
                     break;
                 case 0:
                 default:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentNewsUniversity()).commit();
-                    navigationView.setCheckedItem(R.id.news);
+                    showMenuFragment(new FragmentNewsUniversity(), true, R.id.news);
                     break;
             }
 
@@ -124,20 +120,53 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-
-            if (BackPress.getFragment().size() < 2) {
+            if (countFragmentIntoStack == 1) {
                 AlertDialog.Builder ad = new AlertDialog.Builder(this);
                 ad.setTitle("Выход");
                 ad.setMessage("Вы уверены что хотите выйти?");
                 ad.setPositiveButton("Да", (dialog, arg1) -> {
+                    super.onBackPressed();
                     super.onBackPressed();
                 });
                 ad.setNegativeButton("Нет", (dialogInterface, i) -> {
                 });
                 ad.setCancelable(true);
                 ad.show();
+            } else {
+                super.onBackPressed();
+                countFragmentIntoStack--;
             }
         }
+    }
+
+    public void showMenuFragment(Fragment fragment, boolean addToBackStack, int chekItemId) {
+        navigationView.setCheckedItem(chekItemId);
+        showMenuFragment(fragment, addToBackStack);
+    }
+
+    public void showMenuFragment(Fragment fragment, boolean addToBackStack) {
+        showFragment(R.id.fragment_container, fragment, addToBackStack);
+    }
+
+    protected void showFragment(int resId, Fragment fragment, boolean addToBackStack) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+
+        Fragment lastFragment = fragmentManager.findFragmentByTag(String.valueOf(countFragmentIntoStack));
+        if (lastFragment != null) {
+            transaction.hide(lastFragment);
+        }
+
+        countFragmentIntoStack++;
+        transaction.add(resId, fragment, String.valueOf(countFragmentIntoStack)).setBreadCrumbShortTitle(String.valueOf(countFragmentIntoStack));
+
+        if (addToBackStack) {
+            transaction.addToBackStack(String.valueOf(countFragmentIntoStack));
+        }
+
+        transaction.commit();
     }
 
 
@@ -159,11 +188,11 @@ public class MainActivity extends AppCompatActivity
             }
 
             if (level == 4)
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentTimeTableSelect()).commit();
+                showMenuFragment(new FragmentTimeTableSelect(), true);
             else
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentTimeTable()).commit();
+                showMenuFragment(new FragmentTimeTable(), true);
         } else if (id == R.id.student) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentStudentInfo()).commit();
+            showMenuFragment(new FragmentStudentInfo(), true);
         } else if (id == R.id.marks) {
             switch (level) {
                 case 1:
@@ -180,9 +209,9 @@ public class MainActivity extends AppCompatActivity
                     break;
             }
             if (level == 3 || level == 4) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMarckSelect()).commit();
+                showMenuFragment(new FragmentMarckSelect(), true);
             } else
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMarks()).commit();
+                showMenuFragment(new FragmentMarks(), true);
 
         } else if (id == R.id.absenteeism) {
             switch (level) {
@@ -201,28 +230,27 @@ public class MainActivity extends AppCompatActivity
             }
             if (level != 3) {
                 if (level == 4)
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAbsenteeismSelect()).commit();
+                    showMenuFragment(new FragmentAbsenteeismSelect(), true);
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAbsenteeism()).commit();
+                    showMenuFragment(new FragmentAbsenteeism(), true);
             }
 
         } else if (id == R.id.chat) {
             if (level == 4) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentChatSelect()).commit();
+                showMenuFragment(new FragmentChatSelect(), true);
             } else if (level != 3)
                 startActivity(new Intent(this, ChatActivity.class));
 
         } else if (id == R.id.tasks) {
             if (level != 3) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentTask()).commit();
+                showMenuFragment(new FragmentTask(), true);
             }
         } else if (id == R.id.curator) {
             if (level != 3) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentCurator()).commit();
+                showMenuFragment(new FragmentCurator(), true);
             }
         } else if (id == R.id.news) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FragmentNewsUniversity()).commit();
+            showMenuFragment(new FragmentNewsUniversity(), true);
         } else if (id == R.id.grafic) {
 
         } else if (id == R.id.setngs) {
@@ -245,9 +273,9 @@ public class MainActivity extends AppCompatActivity
                     break;
             }
             if (level == 3 || level == 4) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentProjectsSelect()).commit();
+                showMenuFragment(new FragmentProjectsSelect(), true);
             } else
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentProjects()).commit();
+                showMenuFragment(new FragmentProjects(), true);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

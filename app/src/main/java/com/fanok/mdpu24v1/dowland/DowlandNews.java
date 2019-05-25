@@ -68,6 +68,7 @@ public class DowlandNews extends DowladParent {
 
     @Override
     protected void onPostExecute(Void aVoid) {
+        int position;
         if (articleList == null)
             Toast.makeText(getView().getContext(), getView().getResources().getString(R.string.error_no_internet_conection), Toast.LENGTH_SHORT).show();
 
@@ -108,7 +109,7 @@ public class DowlandNews extends DowladParent {
             }
         });
 
-        listView.setSelection(adapter.getCount() - 10);
+        listView.setSelection(adapter.getCount() - 11);
 
         listView.setEnabled(true);
 

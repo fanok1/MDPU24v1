@@ -59,6 +59,8 @@ public class PopupConfirmStudent extends AppCompatActivity {
             inSql.setProgressBar(findViewById(R.id.progressBar));
             inSql.execute();
             finish();
+
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new FragmentStudentInfo()).commit();
         }

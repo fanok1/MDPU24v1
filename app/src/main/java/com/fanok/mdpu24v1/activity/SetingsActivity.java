@@ -20,6 +20,7 @@ import com.fanok.mdpu24v1.activity.setings.ChangeSetingsPassword;
 import com.fanok.mdpu24v1.activity.setings.ChangeSetingsPhoto;
 import com.fanok.mdpu24v1.dowland.DowlandJsonSettings;
 import com.fanok.mdpu24v1.dowland.InsertDataInSql;
+import com.google.firebase.auth.FirebaseAuth;
 import com.r0adkll.slidr.Slidr;
 
 
@@ -51,6 +52,7 @@ public class SetingsActivity extends AppCompatActivity {
                 inSql.setData("token", token);
                 inSql.execute();
             }
+            FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(view.getContext(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

@@ -38,6 +38,7 @@ public class RegistrationActivity extends ResetPaswordActivity {
     private List<TextInputLayout> layoutList;
     private String error;
     private String type;
+    private String photo;
 
     public static void equalsPassword(boolean b, String passwordConfirm, String password, TextInputLayout layout, String error) {
         if (!b && (!passwordConfirm.equals(password) || password.length() < 6)) {
@@ -163,6 +164,14 @@ public class RegistrationActivity extends ResetPaswordActivity {
         if (arguments != null) {
             mLogin.setText(Objects.requireNonNull(arguments.get("login")).toString());
             type = Objects.requireNonNull(arguments.get("type")).toString();
+            if (arguments.get("email") != null) {
+                mEmail.setText(Objects.requireNonNull(arguments.get("email")).toString());
+                mEmail.setEnabled(false);
+            }
+            if (arguments.get("photo") != null) {
+                photo = Objects.requireNonNull(arguments.get("photo")).toString();
+            } else photo = "";
+
         }
 
 
@@ -255,11 +264,10 @@ public class RegistrationActivity extends ResetPaswordActivity {
             dataInSql.setData("group", mGroup.getText().toString());
             dataInSql.setData("email", mEmail.getText().toString());
             dataInSql.setData("phone", mPhone.getText().toString());
+            if (!photo.isEmpty())
+                dataInSql.setData("photo", photo);
             dataInSql.setData("type", type);
-
             dataInSql.execute();
-
-
         } else
             Toast.makeText(this, getResources().getString(R.string.error_no_internet_conection), Toast.LENGTH_LONG).show();
     }
