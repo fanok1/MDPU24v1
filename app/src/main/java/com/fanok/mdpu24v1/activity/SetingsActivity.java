@@ -76,7 +76,7 @@ public class SetingsActivity extends AppCompatActivity {
 
         login.setOnFocusChangeListener((view, b) -> {
             if (b && !firstFocus) {
-                firstFocus = !firstFocus;
+                firstFocus = true;
                 start(new Intent(view.getContext(), ChangeSetingsParent.class), getResources().getString(R.string.decription_change_login), "set_login.php", login.getText().toString(), InputType.TYPE_CLASS_TEXT, "login", "^\\w{1,20}$", "Имя пользвателя");
             }
         });

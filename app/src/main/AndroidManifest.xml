@@ -70,10 +70,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SwipeOnClose" />
         <activity
-            android:name=".activity.PopupConfirmStudent"
-            android:screenOrientation="portrait"
-            android:theme="@style/PopupGroup" />
-        <activity
             android:name=".activity.AddMarksActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SwipeOnClose" />

@@ -9,6 +9,7 @@ import android.view.View;
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.TypeTimeTable;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.fanok.mdpu24v1.dowland.DowlandJsonProject;
 import com.fanok.mdpu24v1.dowland.ParceJsonProject;
 
@@ -19,7 +20,7 @@ public class TabProject extends TabStudentInfo {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         SharedPreferences mPref = Objects.requireNonNull(getActivity()).getSharedPreferences(StartActivity.PREF_NAME, StartActivity.MODE_PRIVATE);
         final String url = getResources().getString(R.string.server_api) + "get_projets.php";
-        DowlandJsonProject dowlandJson = new DowlandJsonProject(view, url, getListView(), getName());
+        DowlandJsonProject dowlandJson = new DowlandJsonProject(view, url, getListView(), getName(), (MainActivity) getActivity());
         if (dowlandJson.isOnline()) {
             dowlandJson.setProgressBar(view.findViewById(R.id.progressBar));
             dowlandJson.setData("type", String.valueOf(TypeTimeTable.getType()));

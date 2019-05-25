@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
 
     private int level;
     private View headerView;
-    private static int countFragmentIntoStack;
+    public static int countFragmentIntoStack;
     private NavigationView navigationView;
 
     @Override
@@ -81,33 +81,33 @@ public class MainActivity extends AppCompatActivity
             int activity = mPref.getInt("activity", 0);
             switch (activity) {
                 case 1:
-                    showMenuFragment(new FragmentStudentInfo(), true, R.id.student);
+                    showMenuFragment(new FragmentStudentInfo(), R.id.student);
                     break;
                 case 2:
-                    showMenuFragment(new FragmentTimeTable(), true, R.id.timetable);
+                    showMenuFragment(new FragmentTimeTable(), R.id.timetable);
                     break;
                 case 3:
-                    showMenuFragment(new FragmentMarks(), true, R.id.marks);
+                    showMenuFragment(new FragmentMarks(), R.id.marks);
                     break;
                 case 4:
-                    showMenuFragment(new FragmentAbsenteeism(), true, R.id.absenteeism);
+                    showMenuFragment(new FragmentAbsenteeism(), R.id.absenteeism);
                     break;
                 case 5:
-                    showMenuFragment(new FragmentNewsUniversity(), true, R.id.news);
+                    showMenuFragment(new FragmentNewsUniversity(), R.id.news);
                     startActivity(new Intent(this, ChatActivity.class));
                     break;
                 case 6:
-                    showMenuFragment(new FragmentTask(), true, R.id.tasks);
+                    showMenuFragment(new FragmentTask(), R.id.tasks);
                     break;
                 case 7:
-                    showMenuFragment(new FragmentProjects(), true, R.id.projects);
+                    showMenuFragment(new FragmentProjects(), R.id.projects);
                     break;
                 case 8:
-                    showMenuFragment(new FragmentCurator(), true, R.id.curator);
+                    showMenuFragment(new FragmentCurator(), R.id.curator);
                     break;
                 case 0:
                 default:
-                    showMenuFragment(new FragmentNewsUniversity(), true, R.id.news);
+                    showMenuFragment(new FragmentNewsUniversity(), R.id.news);
                     break;
             }
 
@@ -139,16 +139,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void showMenuFragment(Fragment fragment, boolean addToBackStack, int chekItemId) {
+    public void showMenuFragment(Fragment fragment, int chekItemId) {
         navigationView.setCheckedItem(chekItemId);
-        showMenuFragment(fragment, addToBackStack);
+        showMenuFragment(fragment);
     }
 
-    public void showMenuFragment(Fragment fragment, boolean addToBackStack) {
-        showFragment(R.id.fragment_container, fragment, addToBackStack);
+    public void showMenuFragment(Fragment fragment) {
+        showFragment(R.id.fragment_container, fragment);
     }
 
-    protected void showFragment(int resId, Fragment fragment, boolean addToBackStack) {
+    protected void showFragment(int resId, Fragment fragment) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -162,9 +162,9 @@ public class MainActivity extends AppCompatActivity
         countFragmentIntoStack++;
         transaction.add(resId, fragment, String.valueOf(countFragmentIntoStack)).setBreadCrumbShortTitle(String.valueOf(countFragmentIntoStack));
 
-        if (addToBackStack) {
-            transaction.addToBackStack(String.valueOf(countFragmentIntoStack));
-        }
+
+        transaction.addToBackStack(String.valueOf(countFragmentIntoStack));
+
 
         transaction.commit();
     }
@@ -188,11 +188,11 @@ public class MainActivity extends AppCompatActivity
             }
 
             if (level == 4)
-                showMenuFragment(new FragmentTimeTableSelect(), true);
+                showMenuFragment(new FragmentTimeTableSelect());
             else
-                showMenuFragment(new FragmentTimeTable(), true);
+                showMenuFragment(new FragmentTimeTable());
         } else if (id == R.id.student) {
-            showMenuFragment(new FragmentStudentInfo(), true);
+            showMenuFragment(new FragmentStudentInfo());
         } else if (id == R.id.marks) {
             switch (level) {
                 case 1:
@@ -209,9 +209,9 @@ public class MainActivity extends AppCompatActivity
                     break;
             }
             if (level == 3 || level == 4) {
-                showMenuFragment(new FragmentMarckSelect(), true);
+                showMenuFragment(new FragmentMarckSelect());
             } else
-                showMenuFragment(new FragmentMarks(), true);
+                showMenuFragment(new FragmentMarks());
 
         } else if (id == R.id.absenteeism) {
             switch (level) {
@@ -230,27 +230,27 @@ public class MainActivity extends AppCompatActivity
             }
             if (level != 3) {
                 if (level == 4)
-                    showMenuFragment(new FragmentAbsenteeismSelect(), true);
+                    showMenuFragment(new FragmentAbsenteeismSelect());
                 else
-                    showMenuFragment(new FragmentAbsenteeism(), true);
+                    showMenuFragment(new FragmentAbsenteeism());
             }
 
         } else if (id == R.id.chat) {
             if (level == 4) {
-                showMenuFragment(new FragmentChatSelect(), true);
+                showMenuFragment(new FragmentChatSelect());
             } else if (level != 3)
                 startActivity(new Intent(this, ChatActivity.class));
 
         } else if (id == R.id.tasks) {
             if (level != 3) {
-                showMenuFragment(new FragmentTask(), true);
+                showMenuFragment(new FragmentTask());
             }
         } else if (id == R.id.curator) {
             if (level != 3) {
-                showMenuFragment(new FragmentCurator(), true);
+                showMenuFragment(new FragmentCurator());
             }
         } else if (id == R.id.news) {
-            showMenuFragment(new FragmentNewsUniversity(), true);
+            showMenuFragment(new FragmentNewsUniversity());
         } else if (id == R.id.grafic) {
 
         } else if (id == R.id.setngs) {
@@ -273,9 +273,9 @@ public class MainActivity extends AppCompatActivity
                     break;
             }
             if (level == 3 || level == 4) {
-                showMenuFragment(new FragmentProjectsSelect(), true);
+                showMenuFragment(new FragmentProjectsSelect());
             } else
-                showMenuFragment(new FragmentProjects(), true);
+                showMenuFragment(new FragmentProjects());
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

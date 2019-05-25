@@ -7,12 +7,12 @@ import java.util.Objects;
 public class FragmentProjectsSelect extends FragmentMarckSelect {
     @Override
     protected void startFragmentThis() {
-        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentProjectsSelect(), true);
+        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentProjectsSelect());
     }
 
     @Override
     protected void startFragment() {
-        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentProjects(), true);
+        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentProjects());
     }
 }
 

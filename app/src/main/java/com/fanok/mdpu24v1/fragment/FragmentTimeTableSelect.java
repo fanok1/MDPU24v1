@@ -33,7 +33,7 @@ public class FragmentTimeTableSelect extends android.support.v4.app.Fragment {
             dowland.setProgressBar(view.findViewById(R.id.progressBar));
             dowland.execute();
         } else
-            Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentTimeTable(), true);
+            Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentTimeTable());
         listView.setOnItemClickListener((adapterView, view1, i, l) -> {
             if (i == 0) {
                 TypeTimeTable.setType(view.getContext(), TypeTimeTable.teacherTimeTable);
@@ -41,7 +41,7 @@ public class FragmentTimeTableSelect extends android.support.v4.app.Fragment {
                 TypeTimeTable.setType(view.getContext(), TypeTimeTable.curatorTimeTable);
                 TypeTimeTable.setGroup(view.getContext(), adapterView.getItemAtPosition(i).toString());
             }
-            Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentTimeTable(), true);
+            Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentTimeTable());
         });
         return view;
     }

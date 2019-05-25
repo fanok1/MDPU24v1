@@ -103,7 +103,7 @@ public class FragmentProjects extends android.support.v4.app.Fragment {
                 if (notificationManager != null) {
                     notificationManager.cancel(3);
                 }
-                Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentProjects(), true);
+                Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentProjects());
             }
         };
 

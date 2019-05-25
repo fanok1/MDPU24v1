@@ -47,11 +47,11 @@ public class FragmentMarckSelect extends android.support.v4.app.Fragment {
     }
 
     protected void startFragmentThis() {
-        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentMarckSelect(), true);
+        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentMarckSelect());
     }
 
     protected void startFragment() {
-        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentMarks(), true);
+        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentMarks());
     }
 }
 

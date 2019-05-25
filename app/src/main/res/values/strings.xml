@@ -104,7 +104,8 @@
     <string name="error_date">Не верно введенная дата</string>
     <string name="delete">Удалить</string>
     <string name="projects">Проекты</string>
-    <string name="set_starosta">Установить старостой</string>>
+    <string name="set_starosta">Установить старостой</string>
+    <string name="confirm">Приянть</string>>
 
 
 </resources>

@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.fanok.mdpu24v1.dowland.DowlandJsonStudentInfo;
 import com.fanok.mdpu24v1.dowland.ParceJsonStudentInfo;
 
@@ -46,7 +47,7 @@ public class TabStudentInfo extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         final String url = getResources().getString(R.string.server_api) + "get_student_info.php";
         super.onViewCreated(view, savedInstanceState);
-        DowlandJsonStudentInfo dowlandJson = new DowlandJsonStudentInfo(view, url, listView, name);
+        DowlandJsonStudentInfo dowlandJson = new DowlandJsonStudentInfo(view, url, listView, name, (MainActivity) Objects.requireNonNull(getActivity()));
         if (dowlandJson.isOnline()) {
             dowlandJson.setProgressBar(view.findViewById(R.id.progressBar));
             dowlandJson.execute();
@@ -54,7 +55,7 @@ public class TabStudentInfo extends Fragment {
             SharedPreferences mPref = Objects.requireNonNull(getActivity()).getSharedPreferences(StartActivity.PREF_NAME, StartActivity.MODE_PRIVATE);
             String json = mPref.getString("Student_" + name, "");
             if (!json.isEmpty()) {
-                ParceJsonStudentInfo parceJson = new ParceJsonStudentInfo(json, listView);
+                ParceJsonStudentInfo parceJson = new ParceJsonStudentInfo((MainActivity) Objects.requireNonNull(getActivity()), json, listView);
                 parceJson.setProgressBar(view.findViewById(R.id.progressBar));
                 parceJson.execute();
             }

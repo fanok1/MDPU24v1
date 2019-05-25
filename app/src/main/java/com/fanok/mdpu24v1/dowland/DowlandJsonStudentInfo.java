@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.fanok.mdpu24v1.StartActivity;
+import com.fanok.mdpu24v1.activity.MainActivity;
 
 import org.jsoup.nodes.Document;
 
@@ -19,9 +20,13 @@ public class DowlandJsonStudentInfo extends DowladParent {
     private String name;
     private String result;
     private SharedPreferences.Editor editor;
+    @SuppressLint("StaticFieldLeak")
+    private MainActivity activity;
 
-    public DowlandJsonStudentInfo(@NonNull View view, @NonNull String url, ListView listView, String name) {
+    @SuppressLint("CommitPrefEdits")
+    public DowlandJsonStudentInfo(@NonNull View view, @NonNull String url, ListView listView, String name, @NonNull MainActivity activity) {
         super(view, url);
+        this.activity = activity;
         this.listView = listView;
         this.name = name;
         setData("name", name);
@@ -56,7 +61,7 @@ public class DowlandJsonStudentInfo extends DowladParent {
         editor.putString("Student_" + name, result);
         editor.apply();
         super.onPostExecute(aVoid);
-        ParceJsonStudentInfo parceJson = new ParceJsonStudentInfo(result, listView);
+        ParceJsonStudentInfo parceJson = new ParceJsonStudentInfo(activity, result, listView);
         parceJson.setProgressBar(getProgressBar());
         parceJson.execute();
     }

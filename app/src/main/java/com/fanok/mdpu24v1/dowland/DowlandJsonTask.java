@@ -4,10 +4,12 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ListView;
 
+import com.fanok.mdpu24v1.activity.MainActivity;
+
 public class DowlandJsonTask extends DowlandJsonStudentInfo {
 
-    public DowlandJsonTask(@NonNull View view, @NonNull String url, ListView listView, String name) {
-        super(view, url, listView, name);
+    public DowlandJsonTask(@NonNull View view, @NonNull String url, ListView listView, String name, MainActivity activity) {
+        super(view, url, listView, name, activity);
     }
 
     @Override

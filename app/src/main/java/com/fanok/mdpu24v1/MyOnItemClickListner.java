@@ -1,20 +1,27 @@
 package com.fanok.mdpu24v1;
 
 import android.content.Intent;
+import android.support.v7.widget.PopupMenu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 
-import com.fanok.mdpu24v1.activity.PopupConfirmStudent;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.fanok.mdpu24v1.activity.StudentInfoActivity;
+import com.fanok.mdpu24v1.dowland.InsertDataInSqlConfirmStudent;
 
 import java.util.ArrayList;
 
 public class MyOnItemClickListner implements AdapterView.OnItemClickListener {
 
     private static ArrayList<Student> list;
+    private ProgressBar progressBar;
+    private MainActivity activity;
 
-    public MyOnItemClickListner(ArrayList<Student> list) {
+    public MyOnItemClickListner(MainActivity activity, ArrayList<Student> list, ProgressBar progressBar) {
         MyOnItemClickListner.list = list;
+        this.activity = activity;
+        this.progressBar = progressBar;
     }
 
     @Override
@@ -26,9 +33,33 @@ public class MyOnItemClickListner implements AdapterView.OnItemClickListener {
             intent.putExtra("phone", list.get(i).getPhone());
             view.getContext().startActivity(intent);
         } else {
-            Intent intent = new Intent(view.getContext(), PopupConfirmStudent.class);
-            intent.putExtra("name", list.get(i).getName());
-            view.getContext().startActivity(intent);
+            PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+            popupMenu.inflate(R.menu.confirm_student);
+            popupMenu
+                    .setOnMenuItemClickListener(item -> {
+                        switch (item.getItemId()) {
+                            case R.id.confirm:
+                                click(view, 1, i);
+                                return true;
+                            case R.id.cancel:
+                                click(view, 0, i);
+                                return true;
+                            default:
+                                return false;
+                        }
+                    });
+            popupMenu.show();
+        }
+    }
+
+    private void click(View view, int b, int item) {
+        final String url = view.getContext().getResources().getString(R.string.server_api) + "confirm_student.php";
+        InsertDataInSqlConfirmStudent inSql = new InsertDataInSqlConfirmStudent(view, url, activity);
+        if (inSql.isOnline()) {
+            inSql.setData("name", list.get(item).getName());
+            inSql.setData("type", String.valueOf(b));
+            inSql.setProgressBar(progressBar);
+            inSql.execute();
         }
     }
 }

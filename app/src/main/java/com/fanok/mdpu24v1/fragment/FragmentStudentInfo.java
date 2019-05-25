@@ -42,6 +42,27 @@ public class FragmentStudentInfo extends android.support.v4.app.Fragment {
     private ViewPager pager;
     private FragmentManager fm;
 
+    public SharedPreferences getmPref() {
+        return mPref;
+    }
+
+    @Nullable
+    @Override
+    public View getView() {
+        return view;
+    }
+
+    public TabLayout getTab() {
+        return tab;
+    }
+
+    public ViewPager getPager() {
+        return pager;
+    }
+
+    public FragmentManager getFm() {
+        return fm;
+    }
 
     @Nullable
     @Override
@@ -65,13 +86,11 @@ public class FragmentStudentInfo extends android.support.v4.app.Fragment {
 
         IntentFilter intFilt = new IntentFilter(ACTION);
         Objects.requireNonNull(getContext()).registerReceiver(br, intFilt);
-
+        dowland();
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    protected void dowland() {
         String login = mPref.getString("login", "");
         final String url = getResources().getString(R.string.server_api) + "get_groups_student.php";
 
@@ -118,7 +137,7 @@ public class FragmentStudentInfo extends android.support.v4.app.Fragment {
         if (notificationManager != null) {
             notificationManager.cancel(1);
         }
-        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentStudentInfo(), true);
+        Objects.requireNonNull((MainActivity) getActivity()).showMenuFragment(new FragmentStudentInfo());
     }
 
     protected DowlandStudentGroups getDowland(View view, String url, TabLayout tab, ViewPager pager, FragmentManager fm) {

@@ -15,6 +15,7 @@ import com.fanok.mdpu24v1.MyOnItemClickListner;
 import com.fanok.mdpu24v1.R;
 import com.fanok.mdpu24v1.StartActivity;
 import com.fanok.mdpu24v1.Student;
+import com.fanok.mdpu24v1.activity.MainActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -30,8 +31,11 @@ public class ParceJsonStudentInfo extends AsyncTask<Void, Void, ArrayList<Studen
     private ListView listView;
     @SuppressLint("StaticFieldLeak")
     private ProgressBar progressBar;
+    @SuppressLint("StaticFieldLeak")
+    private MainActivity activity;
 
-    public ParceJsonStudentInfo(String json, ListView listView) {
+    public ParceJsonStudentInfo(MainActivity activity, String json, ListView listView) {
+        this.activity = activity;
         this.json = json;
         this.listView = listView;
     }
@@ -80,8 +84,9 @@ public class ParceJsonStudentInfo extends AsyncTask<Void, Void, ArrayList<Studen
 
 
         if (level == 2 || level == 4) {
-            listView.setOnItemClickListener(new MyOnItemClickListner(students));
-
+            listView.setOnItemClickListener(new MyOnItemClickListner(activity, students, progressBar));
+        }
+        if (level == 4) {
             listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
                 String url = listView.getContext().getResources().getString(R.string.server_api) + "set_starosta.php";
                 if (students.get(i).getConfirm() == 1) {
