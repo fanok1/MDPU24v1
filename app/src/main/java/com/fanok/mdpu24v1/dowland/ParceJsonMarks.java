@@ -1,7 +1,12 @@
 package com.fanok.mdpu24v1.dowland;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import static com.fanok.mdpu24v1.StartActivity.PREF_NAME;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
@@ -48,6 +53,7 @@ public class ParceJsonMarks extends AsyncTask<Void, Void, ArrayList<Marks>> {
     private Dates dates = new Dates();
     @SuppressLint("StaticFieldLeak")
     private Context context;
+    private int level;
 
     public ParceJsonMarks(String json, View view, int modul) {
         this.json = json;
@@ -64,6 +70,9 @@ public class ParceJsonMarks extends AsyncTask<Void, Void, ArrayList<Marks>> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        SharedPreferences mPref = this.context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        level = mPref.getInt("level", 0);
+
         if (progressBar != null) progressBar.setVisibility(ProgressBar.VISIBLE);
 
 
@@ -248,6 +257,8 @@ public class ParceJsonMarks extends AsyncTask<Void, Void, ArrayList<Marks>> {
 
             }
         });
+
+        if (level == 1) editText.setFocusable(false);
 
         return editText;
     }

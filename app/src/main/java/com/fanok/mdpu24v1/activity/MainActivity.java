@@ -105,6 +105,22 @@ public class MainActivity extends AppCompatActivity
                 case 8:
                     showMenuFragment(new FragmentCurator(), R.id.curator);
                     break;
+                case 9:
+                    showMenuFragment(new FragmentNewsUniversity(), R.id.news);
+                    Intent intent = new Intent(this, WebViewActivity.class);
+                    intent.putExtra("url", "http://www.dfn.mdpu.org.ua/");
+                    intent.putExtra("type", activity);
+                    intent.putExtra("title", "ДФН");
+                    startActivity(intent);
+                    break;
+                case 10:
+                    showMenuFragment(new FragmentNewsUniversity(), R.id.news);
+                    Intent intent1 = new Intent(this, WebViewActivity.class);
+                    intent1.putExtra("url", "https://mdpu.org.ua/");
+                    intent1.putExtra("type", activity);
+                    intent1.putExtra("title", "МДПУ");
+                    startActivity(intent1);
+                    break;
                 case 0:
                 default:
                     showMenuFragment(new FragmentNewsUniversity(), R.id.news);
@@ -251,6 +267,18 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.news) {
             showMenuFragment(new FragmentNewsUniversity());
+        } else if (id == R.id.dfn) {
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("url", "http://www.dfn.mdpu.org.ua/");
+            intent.putExtra("type", 9);
+            intent.putExtra("title", "ДФН");
+            startActivity(intent);
+        } else if (id == R.id.site) {
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("url", "https://mdpu.org.ua/");
+            intent.putExtra("type", 10);
+            intent.putExtra("title", "МДПУ");
+            startActivity(intent);
         } else if (id == R.id.grafic) {
 
         } else if (id == R.id.setngs) {

@@ -24,6 +24,10 @@
             android:id="@+id/projects"
             android:icon="@drawable/school"
             android:title="@string/projects" />
+        <item
+            android:id="@+id/dfn"
+            android:icon="@drawable/remote_desktop"
+            android:title="@string/dfn"/>
     </group>
 
     <item
@@ -59,6 +63,10 @@
                     android:icon="@drawable/file_pdf"
                     android:title="@string/grafic"
                     android:visible="false" />
+                <item
+                    android:id="@+id/site"
+                    android:icon="@drawable/web"
+                    android:title="@string/site"/>
                 <item
                     android:id="@+id/setngs"
                     android:icon="@drawable/settings"

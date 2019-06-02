@@ -105,7 +105,16 @@
     <string name="delete">Удалить</string>
     <string name="projects">Проекты</string>
     <string name="set_starosta">Установить старостой</string>
-    <string name="confirm">Приянть</string>>
+    <string name="confirm">Приянть</string>
+    <string name="dfn">ДФН</string>
+    <string name="redo">Назад</string>
+    <string name="undo">Вперед</string>
+    <string name="line">line</string>
+    <string name="reload">Обновить</string>
+    <string name="find">Найти на странице</string>
+    <string name="pc">Версия для ПК</string>
+    <string name="open_crome">Открыть в Chrome</string>
+    <string name="site">Сайт</string>>
 
 
 </resources>

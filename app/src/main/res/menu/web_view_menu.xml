@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/undo"
+        android:title="@string/undo"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/refresh"
+        android:title="@string/reload"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/find"
+        android:title="@string/find"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/pc"
+        android:checkable="true"
+        android:title="@string/pc"
+        android:visible="false"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/open_crome"
+        android:title="@string/open_crome"
+        app:showAsAction="never"/>
+
+
+</menu>

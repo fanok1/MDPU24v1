@@ -150,13 +150,14 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void onClick(View view) {
+        if (editText.getText().toString().isEmpty()) return;
         String url = getResources().getString(R.string.server_api) + "chat.php";
         InsertDataInSql inSql = new InsertDataInSql(view, url);
         SharedPreferences mPref = getSharedPreferences(StartActivity.PREF_NAME, MODE_PRIVATE);
         String login = mPref.getString("login", "");
         String level = String.valueOf(mPref.getInt("level", 0));
-        String name = String.valueOf(mPref.getString("name", ""));
-        String photo = String.valueOf(mPref.getString("photo", ""));
+        String name = mPref.getString("name", "");
+        String photo = mPref.getString("photo", "");
         MediaPlayer mp = MediaPlayer.create(this, R.raw.send);
         if (inSql.isOnline()) {
             inSql.setData("action", "insert");

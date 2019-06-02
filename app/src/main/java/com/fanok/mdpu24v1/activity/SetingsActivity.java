@@ -8,8 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -53,6 +55,9 @@ public class SetingsActivity extends AppCompatActivity {
                 inSql.execute();
             }
             FirebaseAuth.getInstance().signOut();
+            android.webkit.CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.removeAllCookies(
+                    aBoolean -> Log.d("SetingsActivity", "Cookie removed: " + aBoolean));
             Intent intent = new Intent(view.getContext(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -73,6 +78,7 @@ public class SetingsActivity extends AppCompatActivity {
         phone.setKeyListener(null);
         email.setKeyListener(null);
         photo.setKeyListener(null);
+
 
         login.setOnFocusChangeListener((view, b) -> {
             if (b && !firstFocus) {
